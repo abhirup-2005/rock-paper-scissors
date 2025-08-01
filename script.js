@@ -8,17 +8,26 @@ function getComputerChoice() {
         return "Scissor";
     }
 }
-let computerChoice = getComputerChoice();
-console.log(computerChoice);
 
 
 
-function getHumanChoice() {
-    let choice = prompt("Enter your choice( Rock / Paper / Scissor )");
+function getHumanChoice(roundNumber) {
+    let choice;
+    do{
+    choice = prompt("<Round "+roundNumber+" of 5>\nEnter your choice ( Rock / Paper / Scissor )\n[case insesitive]");
+
+    //making inputs similar
+    choice = choice.toLowerCase();
+    let firsChar = choice.charAt(0).toUpperCase();
+    choice = firsChar + choice.slice(1);
+
+    //error messege for wrong input
+    if(choice !== "Rock" && choice != "Paper" && choice != "Scissor") {
+        alert("Oops! I guess you made a typo.\nIt's an Invalid input.\nPlease type again");
+    }
+    } while(choice !== "Rock" && choice != "Paper" && choice != "Scissor");
     return choice;
 }
-let humanChoice = getHumanChoice();
-console.log(humanChoice);
 
 
 
@@ -27,9 +36,6 @@ let humanScore = 0,
 
 
 function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase();
-    let firsChar = humanChoice.charAt(0).toUpperCase();
-    humanChoice = firsChar + humanChoice.slice(1);
 
     //when choices are same
     if(humanChoice === computerChoice) {
@@ -45,7 +51,7 @@ function playRound(humanChoice, computerChoice) {
         return "You lose! Rock beats Scissor";
     } else if(humanChoice === "Paper" && computerChoice === "Scissor") {
         computerScore++;
-        return "You lose! Sissor beats Paper";
+        return "You lose! Scissor beats Paper";
     }
 
     //When Human Wins
@@ -57,13 +63,35 @@ function playRound(humanChoice, computerChoice) {
         return "You Won! Rock beats Scissor";
     } else if(humanChoice === "Scissor" && computerChoice === "Paper") {
         humanScore++;
-        return "You Won! Sissor beats Paper";
+        return "You Won! Scissor beats Paper";
     }
-
-
-    else {
-        return "Invalid Input";
-    }
-
 }
-console.log(playRound(humanChoice, computerChoice));
+
+
+function playGame() {
+    for(let i = 1; i<=5; i++) {
+
+        let humanChoice = getHumanChoice(i);
+        let computerChoice = getComputerChoice();
+
+        console.log("< Round " + i + " >");
+        console.log("👤 You      : " + humanChoice);
+        console.log("💻 Computer : " + computerChoice);
+
+        let result = playRound(humanChoice, computerChoice);
+
+        console.log(result);
+        console.log("👤 Your Score     : " + humanScore);
+        console.log("💻 Computer Score : " + computerScore);
+        console.log("------------------------------");
+    }
+    if(humanScore > computerScore) {
+        console.log("🎉 Congrats! Champ 🏆, you beat Computer by " + humanScore + "-" + computerScore + "🎉\nWell deserved 👏");
+    } else if (humanScore < computerScore) {
+        console.log("💔 Computer won the game by " + computerScore + "-" + humanScore + " 💔\nBetter luck next time 🙂");
+    } else {
+        console.log("🤝 It's a Draw 🤝")
+    }
+}
+
+playGame();
