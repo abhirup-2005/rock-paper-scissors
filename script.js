@@ -10,3 +10,12 @@ function getComputerChoice() {
 }
 let computerChoice = getComputerChoice();
 console.log(computerChoice);
+
+
+
+function getHumanChoice() {
+    let choice = prompt("Enter your choice( Rock / Paper / Scissor )");
+    return choice;
+}
+let humanChoice = getHumanChoice();
+console.log(humanChoice);
