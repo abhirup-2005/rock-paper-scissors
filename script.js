@@ -1,15 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
     const btns = document.querySelectorAll(".game");
     const resetBtn = document.querySelector(".reset");
-    const score = document.querySelector(".score");
+    const anouncement = document.querySelector(".anouncement");
+    const showComputerResult = document.querySelector(".computerResult");
+    const showHumanResult = document.querySelector(".humanResult");
+    const computerImage = document.createElement("img");
+    const humanImage = document.createElement("img");
+
+    const themeBtn = document.querySelector(".theme");
+    const body = document.querySelector("body");
+
+    computerImage.classList.add("resultIcon");
+    humanImage.classList.add("resultIcon");
+
     let humanScore = 0;
     let computerScore = 0;
     let humanChoice;
+
+    showHumanResult.textContent = `You: ${humanScore}`;
+    showComputerResult.textContent = `Computer: ${computerScore}`;
 
     // Game buttons
     btns.forEach((btn) => {
         btn.addEventListener("click", () => {
             humanChoice = btn.textContent;
+            if (humanChoice === "Rock") {
+                humanImage.src = "./images/rock.jpg";
+            }
+            else if (humanChoice === "Paper") {
+                humanImage.src = "./images/paper.jpg";
+            }
+            else {
+                humanImage.src = "./images/scissor.jpg";
+            }
             playGame();
         });
     });
@@ -25,13 +48,17 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(result);
         console.log(`Score: H: ${humanScore}, C: ${computerScore}`);
 
-        score.textContent = `${result}, Computer chose ${computerChoice}`;
+        showHumanResult.textContent = `You: ${humanScore}`;
+        showHumanResult.append(humanImage);
+        showComputerResult.textContent = `Computer: ${computerScore}`;
+        showComputerResult.append(computerImage);
+        anouncement.textContent = `${result}`;
 
         if (humanScore === 5) {
-            score.textContent = `Congrats! You Won.... by ${humanScore}-${computerScore}`;
+            anouncement.textContent = `Congrats! You Won`;
             btns.forEach((btn) => btn.style.display = "none");
         } else if (computerScore === 5) {
-            score.textContent = `Computer Won.... by ${humanScore}-${computerScore}`;
+            anouncement.textContent = `Sorry! Computer Won`;
             btns.forEach((btn) => btn.style.display = "none");
         }
     }
@@ -39,16 +66,28 @@ document.addEventListener("DOMContentLoaded", () => {
     function resetGame() {
         humanScore = 0;
         computerScore = 0;
-        score.textContent = "Score here";
+        anouncement.textContent = "";
+        showHumanResult.textContent = `You: ${humanScore}`;
+        showComputerResult.textContent = `Computer: ${computerScore}`;
         btns.forEach((btn) => (btn.style.display = "inline-block"));
         console.clear();
     }
 
     function getComputerChoice() {
         let choice = Math.random();
-        if (choice <= 1 / 3) return "Rock";
-        else if (choice <= 2 / 3) return "Paper";
-        else return "Scissor";
+        computerImage.style.transform = "scaleX(-1)";
+        if (choice <= 1 / 3) {
+            computerImage.src = "./images/rock.jpg";
+            return "Rock";
+        }
+        else if (choice <= 2 / 3) {
+            computerImage.src = "./images/paper.jpg";
+            return "Paper";
+        }
+        else {
+            computerImage.src = "./images/scissor.jpg";
+            return "Scissor";
+        }
     }
 
     function playRound(humanChoice, computerChoice) {
@@ -70,4 +109,23 @@ document.addEventListener("DOMContentLoaded", () => {
             if (humanChoice === "Scissor") return "You Won! Scissor beats Paper";
         }
     }
+
+    //Theme:
+    // Check if user had a saved theme
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark");
+        themeBtn.textContent = "Light Mode";
+    }
+
+    themeBtn.addEventListener("click", () => {
+        body.classList.toggle("dark");
+
+        if (body.classList.contains("dark")) {
+            themeBtn.textContent = "Light Mode";
+            localStorage.setItem("theme", "dark"); // save preference
+        } else {
+            themeBtn.textContent = "Dark Mode";
+            localStorage.setItem("theme", "light");
+        }
+    });
 });

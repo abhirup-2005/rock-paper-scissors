@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Comic Neue', cursive;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 100vw;
+    justify-content: space-between;
+    text-align: center;
+
+    background-color: rgb(223, 246, 255);
+    color: black;
+}
+
+body.dark {
+    background-color: rgb(3, 19, 36);
+    color: white;
+}
+
+.theme, .reset {
+    width: 120px;
+    height: 40px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: rgb(3, 19, 36);
+    color: white;
+}
+body.dark .theme, body.dark .reset {
+    background-color: white;
+    color: black;
+}
+.theme:hover, .reset:hover {
+    background-color: rgb(12, 63, 119);
+    border: 3px solid rgb(0, 255, 145);
+}
+body.dark .theme:hover, body.dark .reset:hover {
+    background-color: rgb(173, 173, 173);
+    border: 3px solid rgb(0, 255, 145);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.odin {
+    padding: 10px;
+}
+
+h1 {
+    padding-bottom: 100px;
+}
+.human {
+    display: flex;
+    justify-content: space-around;
+    padding: 50px 10px;
+    background-color: rgb(7, 45, 85);
+
+}
+
+.game, .resultIcon {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    font-size: 0;
+    border: none;
+    border-radius: 50px;
+}
+
+.game:hover {
+    border: 5px rgb(0, 255, 145) solid;
+}
+
+.rock {
+    background-image: url("./images/rock.jpg");
+}
+
+.paper {
+    background-image: url("./images/paper.jpg");
+}
+
+.scissor {
+    background-image: url("./images/scissor.jpg");
+}
+
+.anouncement {
+    font-size: x-large;
+    font-weight: bold;
+    margin: 25px;
+}
+
+.result {
+    display: flex;
+    justify-content: space-around;
+}
+
+.result>* {
+    display: flex;
+    flex-direction: column;
+}
+
+.reset {
+    width: 150px;
+    height: 50px;
+    padding: 10px 20px;
+    font-size: large;
+    font-weight: bold;
+    margin: 25px;
+}
